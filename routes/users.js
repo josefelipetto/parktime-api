@@ -83,10 +83,8 @@ router.get('/', function(request, response, next) {
               return;
             }
             
-            response.status(200).send({
-              name: result.name,
-              email: result.email
-            });
+            delete result.password
+            response.status(200).send(result);
           })
     });
 });
