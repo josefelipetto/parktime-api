@@ -1,0 +1,8 @@
+NODE_PATH="./src"
+DEBUG="false"
+SERVER_PORT=8888
+MESSAGE_IND="MESSAGE@Server -ID_"
+ERROR_MESSAGE_IND="ERROR@Server - ID_"
+DB_PATH="./server/parkTimeDb/parkTime.db"
+
+REACT_APP_API=http://localhost:8888
