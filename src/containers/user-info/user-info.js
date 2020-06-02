@@ -66,8 +66,8 @@ export default function UserInfo () {
         </div>
         <div className='userdata' style={{ padding: '1rem' }}>
           <h3>{userInfo.name || ''}</h3>
-          <p>{userInfo.name || ''}</p>
           <p>{userInfo.email || ''}</p>
+          <p>{(userInfo.car || {}).licensePlate || ''}</p>
         </div>
       </div>
       <div style={{display: 'flex', flex: 1, padding: '1rem'}}>

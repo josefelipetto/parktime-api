@@ -8,6 +8,7 @@ import api from '../../services/api'
 import { useHistory } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
 import { Formik } from 'formik';
+import { toast } from 'react-toastify';
 
 export default function Signup () {
 
@@ -15,12 +16,16 @@ export default function Signup () {
 
   const handleSubmit = (values, { setSubmitting }) => {
 
-    // api.post()
-
-    setTimeout(() => {
-      console.log(JSON.stringify(values, null, 2));
+    api.post('/users', values)
+    .then((response) => {
       setSubmitting(false);
-    }, 2000);
+      toast.success('Usuário criado com sucesso!')
+      setTimeout(() => history.push('/login'),300)
+    })    
+    .catch((err) => {
+      setSubmitting(false);
+      toast.error(err.response.data.message || 'Não foi possível cadastrar o seu usuário')
+    })
   }
 
   const validateForm = values => {
@@ -75,7 +80,7 @@ export default function Signup () {
                 value={values.name}
                 onChange={handleChange}
                 fullWidth={true}
-                error={errors.name}
+                error={!!errors.name}
                 helperText={!errors.name ? null : errors.name}
               />              
             </div>
@@ -89,7 +94,7 @@ export default function Signup () {
                 fullWidth={true}
                 value={values.licensePlate}
                 onChange={handleChange}
-                error={errors.licensePlate}
+                error={!!errors.licensePlate}
                 helperText={!errors.licensePlate ? null : errors.licensePlate}
               />
             </div>
@@ -103,7 +108,7 @@ export default function Signup () {
                 fullWidth={true}
                 value={values.email}
                 onChange={handleChange}
-                error={errors.email}
+                error={!!errors.email}
                 helperText={!errors.email ? null : errors.email}
               />
             </div>
@@ -117,7 +122,7 @@ export default function Signup () {
                 fullWidth={true}
                 value={values.password}
                 onChange={handleChange}
-                error={errors.password}
+                error={!!errors.password}
                 helperText={!errors.password ? null : errors.password}
               />
             </div>

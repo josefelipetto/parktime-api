@@ -25,10 +25,12 @@ export default function Login () {
     try {
       
       const response = await api.post('/login',{user:email, password});
-      localStorage.setItem('pktime', JSON.stringify(response.data));
-
-      setLoading(false);
-      history.push('/map');
+      
+      Promise
+      .resolve(JSON.stringify(response.data))
+      .then((jsonStr) => localStorage.setItem('pktime',jsonStr))
+      .then(() => setLoading(false))
+      .then(() => history.push('/map'))
 
     } catch (error) {
       console.error(error)
@@ -40,6 +42,7 @@ export default function Login () {
 
   return (
     <div className="Login">
+      <h2 style={{textAlign: 'center'}}>ParkTime 🚗</h2>
       <form className="combo" onSubmit={auth} noValidate autoComplete="on">
         <div>
           <TextField 

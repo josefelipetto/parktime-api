@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var verifyJWT = function (req, res, next) {
   
-  if ((req.method === "POST" && req.url === "/login") || (req.method === "POST" && req.url === "/register")) {
+  if ((req.method === "POST" && req.url === "/login") || (req.method === "POST" && req.url === "/users")) {
     next();
     return;
   }

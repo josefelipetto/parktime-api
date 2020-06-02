@@ -5,7 +5,8 @@ import { Formik, Form } from "formik";
 import Card from '../info-card/info-card';
 import Button from '../button/button';
 import { Row } from '../../global-style';
-import { postBooking } from '../../services/locations'
+import api, { postBooking } from '../../services/locations'
+import { CircularProgress } from '@material-ui/core';
 
 
 const Input = styled.input`
@@ -24,7 +25,19 @@ const Input = styled.input`
 
 export default function Booking ({ onClose, parkingData, onSuccess, onFailure }) {
 
-  React.useEffect(() => {    
+  const [licensePlate, setLicensePlate] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    api.get('/users')
+    .then((response) => {
+      setLicensePlate((response.data.car || {}).licensePlate || '')
+      setIsLoading(false)
+    })    
+    .catch((err) => {
+      setIsLoading(false)
+      onFailure(err)
+    })
   },[])
 
   /* {formik.touched.firstName && formik.errors.firstName ? (
@@ -33,7 +46,7 @@ export default function Booking ({ onClose, parkingData, onSuccess, onFailure })
 
   return (
     <Formik
-      initialValues={{ licensePlate: ''}}
+      initialValues={{ licensePlate: licensePlate }}
       enableReinitialize="true"
       onSubmit={(values) => {
         postBooking(parkingData._id, values)
@@ -53,9 +66,11 @@ export default function Booking ({ onClose, parkingData, onSuccess, onFailure })
             <Row style={{ alignItems: 'center' }}>
               <label htmlFor="licensePlate">Placa do veículo</label>
               <Input 
-                id="licensePlate" 
+                id="licensePlate"
                 {...formik.getFieldProps('licensePlate')} 
                 maxLength="7"
+                disabled
+                style={{ textAlign: 'center' }}
               />
               <Button 
                 variant='success'
@@ -66,7 +81,9 @@ export default function Booking ({ onClose, parkingData, onSuccess, onFailure })
                 }}
                 disabled={formik.values.licensePlate.length < 7}
               >
-                Reservar
+                {isLoading
+                  ? <CircularProgress size='16px'/>
+                  : 'Reservar'}
               </Button>
             </Row>
             {formik.values.licensePlate.length < 7

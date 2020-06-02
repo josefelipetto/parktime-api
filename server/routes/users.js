@@ -13,7 +13,8 @@ router.post('/', function(request, response, next) {
   const { name, email, password } = request.body;
   
   if (isEmptyOrNull(name)) {
-    response.status(400).send({
+    response.status(400)
+    response.send({
       success: false,
       message: 'Nome deve ser informado'
     });
@@ -21,7 +22,8 @@ router.post('/', function(request, response, next) {
   }
   
   if (isEmptyOrNull(email)) {
-    response.status(400).send({
+    response.status(400)
+    response.send({
       success: false,
       message: 'E-mail deve ser informado'
     });
@@ -29,7 +31,8 @@ router.post('/', function(request, response, next) {
   }
 
   if (isEmptyOrNull(password)) {
-    response.status(400).send({
+    response.status(400)
+    response.send({
       success: false,
       message: 'Senha deve ser informada'
     });
