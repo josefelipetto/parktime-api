@@ -7,6 +7,7 @@ import Map from '../containers/map/map';
 import Login from '../containers/login/login';
 import Signup from '../containers/signup/signup';
 import UserInfo from '../containers/user-info/user-info';
+import { getAuth } from '../utils/utils';
 
 // auth: true
 // token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZDU1ZGM2ODU5MjdjNTNhZTE5NDE4MiIsImlhdCI6MTU5MTA0Nzc2MSwiZXhwIjoxNTkxMTQ3NzYxfQ.hWsSWRYZgLiafdQyhLbxMguZKzbfA77SMOL9kjTqqko"
@@ -15,7 +16,8 @@ import UserInfo from '../containers/user-info/user-info';
 
 function Routers() {
 
-    const logged = (localStorage.getItem('pktime') || '').includes('user');
+    // adad
+    const logged = getAuth();
 
     return (
         <Switch>

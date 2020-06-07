@@ -19,7 +19,7 @@ export default function UserInfo () {
   const [error, setError] = React.useState(null);
 
   const logout = () => {
-    localStorage.removeItem('pktime')
+    localStorage.removeItem('@pktime')
     localStorage.clear()
     history.push('/login')
   }

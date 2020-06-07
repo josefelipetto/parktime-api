@@ -30,7 +30,8 @@ router.post('/', function(request, response, next) {
                  password: passwordHashed.digest('hex')
              }, (error, result) => {
                  
-                if (err) {
+                if (error) {
+                    console.log(error)
                      response.status(500).send({
                          auth: false, token: null
                      });
@@ -38,6 +39,7 @@ router.post('/', function(request, response, next) {
                  }
 
                  if (result.name === null || result.name === undefined) {
+                    console.log('user not found')
                      response.status(500).send({
                          auth: false, token: null
                      });
@@ -51,7 +53,9 @@ router.post('/', function(request, response, next) {
                 });
 
                 response.status(200).send({
-                    auth: true, token: token, user: {
+                    auth: true, 
+                    token: token, 
+                    user: {
                         result
                     }
                 });

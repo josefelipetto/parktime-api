@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import api from '../../services/api'
 import { useHistory } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
+import { getAuth } from '../../utils/utils';
 
 export default function Login () {
 
@@ -15,6 +16,12 @@ export default function Login () {
   const [email, setEmailValue] = React.useState('');
   const [password, setPassValue] = React.useState('');
   const [loading, setLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    if (getAuth()) {
+      history.push('/map')
+    }
+  }, [history])
 
   const auth = async e => {
     e.preventDefault();
@@ -28,7 +35,7 @@ export default function Login () {
       
       Promise
       .resolve(JSON.stringify(response.data))
-      .then((jsonStr) => localStorage.setItem('pktime',jsonStr))
+      .then(jsonStr => localStorage.setItem('@pktime',jsonStr))
       .then(() => setLoading(false))
       .then(() => history.push('/map'))
 

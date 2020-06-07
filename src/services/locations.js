@@ -1,18 +1,10 @@
 import axios from 'axios';
+import { getToken } from '../utils/utils';
 
 const API_URL = process.env.REACT_APP_API;
 const api = axios.create({
   baseURL: API_URL
 });
-
-const getToken = () => {
-
-  try {
-    return JSON.parse((localStorage.getItem('pktime') || {})).token
-  } catch (error) {
-    return null
-  }
-}
 
 api.interceptors.request.use(
   config => {
