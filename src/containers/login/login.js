@@ -37,7 +37,6 @@ export default function Login () {
       .resolve(JSON.stringify(response.data))
       .then(jsonStr => localStorage.setItem('@pktime',jsonStr))
       .then(() => setLoading(false))
-      .then(() => history.push('/map'))
 
     } catch (error) {
       console.error(error)
