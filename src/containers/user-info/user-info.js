@@ -10,6 +10,7 @@ import FullLoader from '../../components/full-loader/full-loader'
 import { Formik } from 'formik';
 import { MdExitToApp, MdArrowBack } from 'react-icons/md'
 import { toast } from 'react-toastify';
+import CustomDialog from '../../components/custom-dialog/custom-dialog';
 
 export default function UserInfo () {
 
@@ -72,6 +73,7 @@ export default function UserInfo () {
       </div>
       <div style={{display: 'flex', flex: 1, padding: '1rem'}}>
         oaihdoadoaisdo
+        <CustomDialog/>
       </div>
     </div>
   );
