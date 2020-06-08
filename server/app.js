@@ -1,17 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 require('dotenv-safe').config();
-var jwt = require('jsonwebtoken')
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
-var sectorsRouter = require('./routes/sectors');
-var cors = require('cors');
+const jwt = require('jsonwebtoken');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const loginRouter = require('./routes/login');
+const sectorsRouter = require('./routes/sectors');
+const reservationsRouter = require('./routes/reservations');
+const cors = require('cors');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,25 +25,26 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var verifyJWT = function (req, res, next) {
-  
+const verifyJWT = function (req, res, next) {
+
   if ((req.method === "POST" && req.url === "/login") || (req.method === "POST" && req.url === "/users")) {
     next();
     return;
   }
 
-  var token = req.headers['x-access-token'];
-  if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
+  const token = req.headers['x-access-token'];
+  if (!token) return res.status(401).send({auth: false, message: 'No token provided.'});
 
   jwt.verify(token, process.env.SECRET, function (err, decoded) {
-    if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+    if (err) {
+      return res.status(500).send({auth: false, message: 'Failed to authenticate token.'});
+    }
 
     // se tudo estiver ok, salva no request para uso posterior
-    req.userId = decoded.id;
+    req.user = decoded;
     next();
   });
-}
-
+};
 
 
 app.use('/', indexRouter);
@@ -52,6 +54,7 @@ app.use(verifyJWT);
 
 app.use('/users', usersRouter);
 app.use('/sectors', sectorsRouter);
+app.use('/reservations', reservationsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
