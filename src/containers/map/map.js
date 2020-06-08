@@ -37,10 +37,6 @@ const InfoContainer = styled.div`
   z-index: 1000;
 `;
 
-const StyledBooking = styled.div`
-  visibility: ${props => !props.hidden ? 'visible' : 'hidden'};
-`;
-
 export default function Map (props) {
 
   const history = useHistory();

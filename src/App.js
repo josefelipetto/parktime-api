@@ -1,5 +1,4 @@
 import React from 'react';
-import { GlobalStyle } from './global-style';
 
 import Providers from './providers';
 import Routes from './router/routes';

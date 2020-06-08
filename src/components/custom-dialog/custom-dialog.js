@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+import { MdDelete } from 'react-icons/md';
 
 export default function CustomDialog({ text, onConfim, onCancel }) {
   const [open, setOpen] = React.useState(false);
@@ -29,8 +30,8 @@ export default function CustomDialog({ text, onConfim, onCancel }) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open responsive dialog
+      <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
+        <MdDelete size='20px'/>
       </Button>
       <Dialog
         fullScreen={fullScreen}
@@ -38,19 +39,18 @@ export default function CustomDialog({ text, onConfim, onCancel }) {
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle id="responsive-dialog-title">{`Reserva ${text}`}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
+            Deseja remover essa reserva ?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Disagree
+            Cancelar
           </Button>
           <Button onClick={handleConfirm} color="primary" autoFocus>
-            Agree
+            Confirmar
           </Button>
         </DialogActions>
       </Dialog>

@@ -26,8 +26,12 @@ export const getSectors = (id) => {
   return api.get(`/sectors${id ? `/${id}` : ''}`)          
 };
 
+export const getReservations = () => {
+  return api.get(`/reservations`)
+};
+
 export const postBooking = (id,data) => {
-  return api.post(`/sectors/${id}/book`,data, { 
+  return api.post(`/reservations`,{ sector: id, time: new Date().toISOString() }, { 
     headers: {
       'Content-Type': 'application/json'
     }
