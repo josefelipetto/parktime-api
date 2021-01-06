@@ -23,7 +23,7 @@
     "morgan": "~1.9.1",
     "@mapbox/mapbox-sdk": "^0.9.0",
     "@material-ui/core": "^4.9.13",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "concurrently": "^5.1.0",
     "dotenv": "^8.2.0",
